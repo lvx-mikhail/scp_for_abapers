@@ -1,0 +1,9 @@
+namespace HiMTA;
+
+entity User {
+        @Comment : 'Id of User'
+    key usid : String(4);
+
+        @Comment : 'Description'
+        name : String(100);
+};
