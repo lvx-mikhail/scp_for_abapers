@@ -1,0 +1,23 @@
+service namespace "app_node" {
+
+	"app_db::Core.Country" as "Country";
+	
+	"app_db::Soccer.Liga" as "Liga" navigates("Liga_to_Match" as "toMatch");
+	
+	"app_db::Soccer.Match" as "Match" navigates("Match_to_Liga" as "toLiga", "Match_to_Market" as "toMarket");
+	
+	"app_db::Betting.Market" as "Market" navigates("Market_to_Quote" as "toQuote");
+	
+    association "Liga_to_Match" principal "Liga"("id")
+            multiplicity "1" dependent "Match"("liga_id") multiplicity "*";
+
+    association "Match_to_Liga" principal "Match"("liga_id")
+            multiplicity "1" dependent "Liga"("id") multiplicity "1";
+            
+    association "Match_to_Market" principal "Match"("id")
+            multiplicity "1" dependent "Market"("match_id") multiplicity "*";            
+
+    association "Market_to_Quote" principal "Market"("id")
+            multiplicity "1" dependent "Quote"("market_id") multiplicity "*"; 
+
+}

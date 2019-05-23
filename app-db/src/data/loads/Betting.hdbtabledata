@@ -1,0 +1,39 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "app_db::Betting.Market",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "app_db::Market.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+          "id",
+          "name",
+          "status",
+          "match_id"
+        ]
+      }
+    },
+    {
+      "target_table": "app_db::Betting.Quote",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "app_db::Quote.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+          "id",
+          "name",
+          "time",
+          "ask",
+          "bid",
+          "market_id"
+        ]
+      }
+    }    
+  ]
+}

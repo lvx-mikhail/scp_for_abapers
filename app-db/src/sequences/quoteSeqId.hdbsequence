@@ -1,0 +1,2 @@
+SEQUENCE "app_db::quoteSeqId" START WITH 1000 MAXVALUE 9999
+RESET BY SELECT IFNULL(MAX("id"), 999) + 1 FROM "app_db::Betting.Quote"

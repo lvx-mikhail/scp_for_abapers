@@ -1,0 +1,24 @@
+namespace app_db;
+
+using app_db::Soccer.Match;
+
+context MatchView {
+	
+	@Comment : 'Title View'
+	define view Title as
+        select from Match
+        	{
+        		id,
+        		name_home || ' vs ' || name_away as title,
+        		toLiga.name as ligaName
+        	};	
+	
+	@Comment : 'Market Overview'
+	define view MarketOverview as
+        select from Match
+        	{
+        		id,
+        		count(toMarket[status='A'].id) AS marketCount
+        	} GROUP BY id;
+	
+}

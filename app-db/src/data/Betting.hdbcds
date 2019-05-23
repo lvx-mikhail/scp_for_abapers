@@ -1,0 +1,36 @@
+namespace app_db;
+
+using app_db::Core;
+
+context Betting {
+    @Comment : 'Bet Market'
+    entity Market {
+            @Comment : 'Market ID'
+        key id       : Core.busKey;
+
+            @Comment : 'Market Name'
+            name     : Core.longName;
+            status   : Core.status;
+            match_id : Core.busKey;
+            toQuote  : association[*] to Quote on toQuote.market_id = id;
+    };
+
+    @Comment : 'Bet Quote'
+    entity Quote {
+            @Comment : 'ID'
+        key id        : Core.busKey;
+
+            @Comment : 'Name'
+            name      : Core.longName;
+            
+            @Comment : 'Time'
+            time : Core.tTime;
+
+            @Comment : 'Ask'
+            ask       : Core.quote;
+
+            @Comment : 'Bid'
+            bid       : Core.quote;
+            market_id : Core.techKey;
+    };
+}

@@ -1,0 +1,7 @@
+service namespace "app_node" {
+
+	"app_db::MatchView.Title" as "MatchTitle" key ("id");
+	
+	"app_db::MatchView.MarketOverview" as "MarketOverview" key ("id");
+
+}

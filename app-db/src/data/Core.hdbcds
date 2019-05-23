@@ -1,0 +1,21 @@
+namespace app_db;
+
+context Core {
+	
+	type techKey : Integer64;
+	type busKey : String(4);
+	type goal : Integer;
+	type tDate : LocalDate;
+	type tTime : UTCTimestamp;
+	type teamName : String(70);
+	type longName : String(100);
+	type quote : Decimal(3, 2);
+	type status : String(1);
+	
+	entity Country {
+		key id   : techKey generated always as identity(start with 1 increment by 1);
+		name : longName;
+		is_allowed : hana.TINYINT;
+	}
+	
+}

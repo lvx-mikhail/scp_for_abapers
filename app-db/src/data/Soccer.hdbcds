@@ -1,0 +1,38 @@
+namespace app_db;
+
+using app_db::Core;
+using app_db::Betting.Market;
+
+context Soccer {
+    @Comment : 'Soccer Match Details'
+    entity Match {
+            @Comment : 'Match ID'
+        key id        : Core.busKey;
+
+            @Comment : 'Home Team Name'
+            name_home : Core.teamName;
+
+            @Comment : 'Away Team Name'
+            name_away : Core.teamName;
+
+            @Comment : 'Home Team Goals'
+            goal_home : Core.goal;
+
+            @Comment : 'Away Team Goals'
+            goal_away : Core.goal;
+            liga_id   : Core.techKey;
+            toLiga    : association[1] to Liga   on toLiga.id = liga_id;
+            toMarket  : association[*] to Market on toMarket.match_id = id;
+    };
+
+    @Comment : 'Liga'
+    entity Liga {
+            @Comment : 'Liga ID'
+        key id   : Core.busKey;
+
+            @Comment : 'Liga Name'
+            name : Core.longName;
+            
+            toMatch : association[*] to Match on toMatch.liga_id = id;
+    };
+}

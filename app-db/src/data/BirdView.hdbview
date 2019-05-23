@@ -1,0 +1,8 @@
+VIEW "app_db::Space.BirdView"  COMMENT 'Bird View Name'
+   ( "id",
+	 "birdName",
+	 "eggSize" ) AS SELECT
+	 "Bird"."ID" AS "id",
+	 "Bird"."NAME" AS "birdName",
+	 "Bird"."EGG"."SIZE" AS "eggSize" 
+FROM "app_db::Space.Bird" AS "Bird" WITH READ ONLY

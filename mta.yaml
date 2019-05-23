@@ -1,6 +1,6 @@
-ID: empty
+ID: app
 _schema-version: '2.1'
-description: Empty
+description: App
 version: 0.0.1
 modules:
   - name: app-db
@@ -17,6 +17,7 @@ modules:
           url: '${default-url}'
     requires:
       - name: hdi_app-db
+      - name: app-db
 resources:
   - name: hdi_app-db
     properties:
