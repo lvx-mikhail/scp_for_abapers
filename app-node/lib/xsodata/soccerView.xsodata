@@ -1,7 +1,13 @@
 service namespace "app_node" {
 
-	"app_db::MatchView.Title" as "MatchTitle" key ("id");
+	"app_db::MatchView.Title" as "MatchTitle" key ("id")
+	create forbidden
+    update forbidden
+    delete forbidden;
 	
-	"app_db::MatchView.MarketOverview" as "MarketOverview" key ("id");
+	"app_db::MatchView.MarketOverview" as "MarketOverview" key ("id")
+	create forbidden
+    update forbidden
+    delete forbidden;
 
 }

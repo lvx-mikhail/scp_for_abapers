@@ -1,6 +1,9 @@
 service namespace "app_node" {
 
-	"app_db::Core.Country" as "Country";
+	"app_db::Core.Country" as "Country"
+	create forbidden
+    update forbidden
+    delete forbidden;
 	
 	"app_db::Soccer.Liga" as "Liga" navigates("Liga_to_Match" as "toMatch");
 	

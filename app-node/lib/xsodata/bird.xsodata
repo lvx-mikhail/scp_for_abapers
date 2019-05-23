@@ -3,6 +3,7 @@ service namespace "app_node" {
 	"app_db::Space.BirdView" as "BirdView" key ("id")
 	create using "xsjs.exits:bird.xsjslib::bird_create"
 	events(before "xsjs.exits:bird.xsjslib::bird_create_before")
+	update forbidden
 	delete forbidden;
 
 }
