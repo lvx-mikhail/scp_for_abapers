@@ -1,0 +1,30 @@
+ID: backend
+_schema-version: "2.1"
+version: 0.0.1
+modules:
+  - name: backend-db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: lev_hdi
+  - name: backend-srv
+    type: nodejs
+    path: srv
+    parameters:
+      memory: 512M
+      disk-quota: 256M
+    provides:
+      - name: srv_api
+        properties:
+          url: ${default-url}
+    requires:
+      - name: lev_hdi
+      - name: lev_uaa
+resources:
+  - name: lev_hdi
+    type: org.cloudfoundry.existing-service
+  - name: lev_uaa
+    type: org.cloudfoundry.existing-service
