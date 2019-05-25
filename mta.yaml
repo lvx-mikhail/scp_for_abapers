@@ -12,9 +12,11 @@ resources:
         schema: LEV_SCP_C5148352
       service: hanatrial
       service-plan: hdi-shared
+      shared: true
   - name: lev_uaa
     type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
       service-plan: application
       path: ./xs-security.json
+      shared: true
