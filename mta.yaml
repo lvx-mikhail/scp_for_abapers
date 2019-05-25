@@ -1,0 +1,20 @@
+ID: lev_resources
+_schema-version: '2.1'
+description: LevX shared resources
+version: 0.0.1
+resources:
+  - name: lev_hdi
+    type: com.sap.xs.hdi-container
+    properties:
+      hdi-container-name: '${service-name}'
+    parameters:
+      config:
+        schema: LEV_SCP_C5148352
+      service: hanatrial
+      service-plan: hdi-shared
+  - name: lev_uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
