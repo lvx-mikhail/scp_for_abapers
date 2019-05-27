@@ -1,0 +1,51 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "LEV_DB_USER_USER",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "Users.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+			"USID",
+			"NAME"
+        ]
+      }
+    },
+    {
+      "target_table": "LEV_DB_EXTRA_ADDRESS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "Address.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+			"ADID",
+			"USID",
+			"CITY",
+			"STRT",
+			"HNUM"
+        ]
+      }
+    },
+    {
+      "target_table": "LEV_DB_EXTRA_CARS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "Cars.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+			"CRID",
+			"USID",
+			"NAME"
+        ]
+      }
+    }
+  ]
+}

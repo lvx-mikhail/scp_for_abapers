@@ -7,11 +7,14 @@ const cds = require("@sap/cds");
 const xsenv = require("@sap/xsenv");
 const xsHDBConn = require("@sap/hdbext");
 const express = require("express");
+const bodyParser = require('body-parser');
 
 https.globalAgent.options.ca = xsenv.loadCertificates();
 global.__base = __dirname + "/";
 
 const app = express();
+
+app.use(bodyParser.json());
 
 var hanaOptions = xsenv.getServices({
 	hana: {
