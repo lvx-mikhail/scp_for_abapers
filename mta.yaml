@@ -9,7 +9,7 @@ modules:
       memory: 256M
       disk-quota: 256M
     requires:
-      - name: backend-db-hdi-container
+      - name: lev_hdi
   - name: backend-srv
     type: nodejs
     path: srv
@@ -21,18 +21,10 @@ modules:
         properties:
           url: ${default-url}
     requires:
-      - name: backend-db-hdi-container
-      - name: backend-uaa
+      - name: lev_hdi
+      - name: lev_uaa
 resources:
-  - name: backend-db-hdi-container
-    type: com.sap.xs.hdi-container
-    properties:
-      hdi-container-name: ${service-name}
-  - name: backend-uaa
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service-plan: default
-      service: xsuaa
-      config:
-        xsappname: backend-${space}
-        tenant-mode: dedicated
+  - name: lev_hdi
+    type: org.cloudfoundry.existing-service
+  - name: lev_uaa
+    type: org.cloudfoundry.existing-service
