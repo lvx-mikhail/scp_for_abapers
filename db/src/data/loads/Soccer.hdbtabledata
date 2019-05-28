@@ -1,0 +1,37 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "DB_SOCCER_MATCH",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "Match.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "NAME_HOME",
+          "NAME_AWAY",
+          "GOAL_HOME",
+          "GOAL_AWAY",
+          "LIGA_ID"
+        ]
+      }
+    },
+    {
+      "target_table": "DB_SOCCER_LIGA",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "Liga.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "NAME"
+        ]
+      }
+    }    
+  ]
+}
