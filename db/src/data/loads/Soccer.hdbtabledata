@@ -32,6 +32,40 @@
           "NAME"
         ]
       }
-    }    
+    },
+	{
+      "target_table": "DB_BETTING_MARKET",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "Market.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "NAME",
+          "STATUS",
+          "MATCH_ID"
+        ]
+      }
+    },
+    {
+      "target_table": "DB_BETTING_QUOTE",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "Quote.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "NAME",
+          "TIME",
+          "ASK",
+          "BID",
+          "MARKET_ID"
+        ]
+      }
+    }      
   ]
 }
