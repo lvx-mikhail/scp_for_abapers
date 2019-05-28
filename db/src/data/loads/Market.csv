@@ -1,4 +1,4 @@
-id,name,status,match_id
+ID,NAME,STATUS,MATCH_ID
 1001,Winner,A,1000
 1002,Draw,A,1000
 1003,Two more goals,A,1001
