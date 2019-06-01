@@ -1,5 +1,5 @@
 ID: backend
-_schema-version: "2.1"
+_schema-version: '2.1'
 version: 0.0.1
 modules:
   - name: backend-db
@@ -16,13 +16,16 @@ modules:
     parameters:
       memory: 512M
       disk-quota: 256M
+      logging_level: debug
     provides:
       - name: srv_api
         properties:
-          url: ${default-url}
+          url: '${default-url}'
     requires:
       - name: lev_hdi
       - name: lev_uaa
+    properties:
+      XS_APP_LOG_LEVEL: debug
 resources:
   - name: lev_hdi
     type: org.cloudfoundry.existing-service

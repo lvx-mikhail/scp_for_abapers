@@ -1,6 +1,6 @@
 namespace db.match.view;
 
-using db.soccer.Match;
+using db.soccer.Match from './soccer';
 
 define view MatchView as
     select from Match {
