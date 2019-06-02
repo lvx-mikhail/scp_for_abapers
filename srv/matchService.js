@@ -13,13 +13,14 @@ module.exports = (srv) => {
 		 each.name += ' final!';
 	});
 	
-	srv.before('CREATE', 'Matches', async (res, req) => {
+	srv.before('CREATE', 'Matches', async (req) => {
 		match = req.data;
 		if (!match.name_home)  return req.error (400, 'Bad request: Home name is missing');
 		if (!match.name_away)  return req.error (400, 'Bad request: Away name is missing');
 		if (!match.liga_id)  return req.error (400, 'Bad request: Liga id is missing');
-		data.HISTORY_CREATEDBYT = context._.req.ip;
-		data.HISTORY_CREATEATT = new Date().toJSON();
+		match.history_createdByT = req._.req.ip;
+		match.history_createAtT = new Date().toJSON();
+		return Promise.resolve();
 	});
 	
 	srv.after(['READ', 'CREATE', 'UPDATE', 'DELETE'], ['Ligas', 'Matches'], async (res, req) => {
@@ -28,7 +29,10 @@ module.exports = (srv) => {
 	 		+ JSON.stringify(req.attr) 
 	 		+ JSON.stringify(req.target.name) + 
 	 		+ JSON.stringify(req.data);		
-		const result = await new logHandler(cds).addEntry(req, 'odata', logContent);
+	 	
+	 	const tx = cds.transaction(req);
+		const result = await new logHandler(cds).addEntry(tx, 'odata', logContent);
+		
 		req.log.debug(`!!!!!Logs added via odata call: ${result}, content: ${logContent}`);
 		
 	 });

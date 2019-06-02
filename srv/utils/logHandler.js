@@ -6,9 +6,8 @@ class LogHandler {
 		this._cds = cds;
 	}
 	
-	async addEntry(req, type, logContent) {
+	async addEntry(tx, type, logContent) {
 		
-	 	const tx = this._cds.transaction(req);
 	 	const statement = INSERT.into('db.logging.Log')
     		.columns('ID','TYPE','TIME','CONTENT')
     		.rows([[uuid(), type, new Date().toJSON().slice(0,19), logContent]]);

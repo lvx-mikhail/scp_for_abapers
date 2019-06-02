@@ -18,7 +18,11 @@ module.exports = () => {
     });
 	
 	app.post("/", async (req, res, next) => {
-		const result = await new logHandler(cds).addEntry(req, 'rest', req.body.logContent);
+		
+		const tx = cds.transaction(req);
+		const result = await new logHandler(cds).addEntry(tx, 'rest', req.body.logContent);
+		await tx.commit();
+		
 		req.loggingContext.getLogger("/Application").info(`!!!!!Logs added via rest call: ${result}, content: ${req.body.logContent}`);
 		res.type("application/json").status(200).send({result: 'OK'});
 	});

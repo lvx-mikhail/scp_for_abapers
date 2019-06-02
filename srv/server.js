@@ -17,7 +17,7 @@ const app = express();
 
 const appContext = logging.createAppContext();
 
-logMode = "warning";
+let logMode = "warning";
 if (process.argv[2] === "--debug") {
 	logMode = "debug";
 } else {
@@ -61,8 +61,8 @@ cds.serve("gen/csn.json", {
     
 require("./router")(app, server);
 
-schedule.scheduleJob('matchLoader', '* 10 * * * *', 
-		require("./jobs/matchLoader.js")());
+schedule.scheduleJob('windLoader', '1 * * * * *', 
+		require("./jobs/windLoader.js")(cds));
 
 app.use(function (err, req, res, next) {
         res.status(500).send({
