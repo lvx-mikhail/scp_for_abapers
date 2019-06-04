@@ -20,3 +20,15 @@ resources:
       service-plan: application
       path: ./xs-security.json
       shared: true
+  - name: lev_destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      shared: true
+      service-plan: lite
+  - name: lev_connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      shared: true
+      service-plan: lite
