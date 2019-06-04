@@ -24,10 +24,16 @@ modules:
     requires:
       - name: lev_hdi
       - name: lev_uaa
+      - name: lev_destination
+      - name: lev_connectivity
     properties:
       XS_APP_LOG_LEVEL: debug
 resources:
   - name: lev_hdi
     type: org.cloudfoundry.existing-service
   - name: lev_uaa
+    type: org.cloudfoundry.existing-service
+  - name: lev_destination
+    type: org.cloudfoundry.existing-service
+  - name: lev_connectivity
     type: org.cloudfoundry.existing-service

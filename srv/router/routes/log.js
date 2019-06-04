@@ -9,22 +9,30 @@ const cds = require('@sap/cds');
 module.exports = () => {
     const app = express.Router();
 	
-	app.get("/count", async (req, res, next) => {
+	app.get("/count", (req, res, next) => {
+        
+        req.loggingContext.getLogger("/Application").info(`__filename: ${__filename}`);
+        
+        //let tracer = req.loggingContext.getTracer(__filename);
+        //tracer.entering("/count", req, res);
         
         new logHandler(cds).getCount()
-        .then(result => res.json(result))
-        .catch(err => cds.error(401, err));
+	        .then(result => res.json(result))
+	        .catch(error => cds.error(401, error));
         
     });
 	
-	app.post("/", async (req, res, next) => {
+	app.post("/", async(req, res, next) => {
+		try {
 		
-		const tx = cds.transaction(req);
-		const result = await new logHandler(cds).addEntry(tx, 'rest', req.body.logContent);
-		await tx.commit();
+			const tx = cds.transaction(req);
+			let result = await new logHandler(cds).addEntry(tx, 'rest', req.body.logContent);
+			await tx.commit();
+			res.json({'result': 'OK'});
 		
-		req.loggingContext.getLogger("/Application").info(`!!!!!Logs added via rest call: ${result}, content: ${req.body.logContent}`);
-		res.type("application/json").status(200).send({result: 'OK'});
+		} catch (error) {
+			cds.error(401, error);
+		}
 	});
 	
 	return app;

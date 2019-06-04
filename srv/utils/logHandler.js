@@ -1,3 +1,5 @@
+"use strict";
+
 const uuid = require('uuid/v4');
 
 class LogHandler {
@@ -11,7 +13,7 @@ class LogHandler {
 	 	const statement = INSERT.into('db.logging.Log')
     		.columns('ID','TYPE','TIME','CONTENT')
     		.rows([[uuid(), type, new Date().toJSON().slice(0,19), logContent]]);
-	    return await tx.run (statement);		
+	    return tx.run (statement);		
 		
 	}
 	

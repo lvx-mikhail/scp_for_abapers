@@ -1,3 +1,5 @@
+"use strict";
+
 const logHandler = require('./utils/logHandler');
 
 module.exports = (srv) => {
@@ -13,27 +15,27 @@ module.exports = (srv) => {
 		 each.name += ' final!';
 	});
 	
-	srv.before('CREATE', 'Matches', async (req) => {
+	srv.before('CREATE', 'Matches', req => {
 		match = req.data;
-		if (!match.name_home)  return req.error (400, 'Bad request: Home name is missing');
-		if (!match.name_away)  return req.error (400, 'Bad request: Away name is missing');
-		if (!match.liga_id)  return req.error (400, 'Bad request: Liga id is missing');
+		if (!match.name_home) return req.error (400, 'Bad request: Home name is missing');
+		if (!match.name_away) return req.error (400, 'Bad request: Away name is missing');
+		if (!match.liga_id) return req.error (400, 'Bad request: Liga id is missing');
 		match.history_createdByT = req._.req.ip;
 		match.history_createAtT = new Date().toJSON();
-		return Promise.resolve();
 	});
 	
-	srv.after(['READ', 'CREATE', 'UPDATE', 'DELETE'], ['Ligas', 'Matches'], async (res, req) => {
+	srv.after(['READ', 'CREATE', 'UPDATE', 'DELETE'], ['Ligas', 'Matches'], (res, req) => {
 		
-	 	const logContent = JSON.stringify(req.query) 
+	 	const logContent = req.target["@Common.Label"]
+	 		+ JSON.stringify(req.query) 
 	 		+ JSON.stringify(req.attr) 
 	 		+ JSON.stringify(req.target.name) + 
 	 		+ JSON.stringify(req.data);		
 	 	
 	 	const tx = cds.transaction(req);
-		const result = await new logHandler(cds).addEntry(tx, 'odata', logContent);
-		
-		req.log.debug(`!!!!!Logs added via odata call: ${result}, content: ${logContent}`);
+		new logHandler(cds).addEntry(tx, 'odata', logContent)
+			.then(result => req.log.info(`!!!!!Logs added via odata call: ${result}, content: ${logContent}`))
+			.catch(error => req.log.error(error));
 		
 	 });
 	

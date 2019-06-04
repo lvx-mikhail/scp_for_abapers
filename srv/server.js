@@ -3,9 +3,9 @@
 const https = require("https");
 const port = process.env.PORT || 3000;
 const server = require("http").createServer();
-const cds = require("@sap/cds");
 const xsenv = require("@sap/xsenv");
 const xsHDBConn = require("@sap/hdbext");
+const cds = require('@sap/cds');
 const logging = require("@sap/logging");
 const express = require("express");
 const bodyParser = require('body-parser');
@@ -20,12 +20,13 @@ const appContext = logging.createAppContext();
 let logMode = "warning";
 if (process.argv[2] === "--debug") {
 	logMode = "debug";
-} else {
-	appContext.setLevel('/Application/*', 'warning');
 }
 
+appContext.setLevel("/*", logMode);
+
 app.use(logging.middleware({
-	appContext: appContext
+	appContext: appContext,
+	logNetwork: true
 }));
 
 app.use('/rest', bodyParser.json());
@@ -62,7 +63,7 @@ cds.serve("gen/csn.json", {
 require("./router")(app, server);
 
 schedule.scheduleJob('windLoader', '1 * * * * *', 
-		require("./jobs/windLoader.js")(cds));
+		require("./jobs/windLoader.js")(appContext));
 
 app.use(function (err, req, res, next) {
         res.status(500).send({
