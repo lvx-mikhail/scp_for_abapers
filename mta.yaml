@@ -32,3 +32,17 @@ resources:
       service: connectivity
       shared: true
       service-plan: lite
+  - name: lev_deployer
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: app-host
+      service: html5-apps-repo
+      shared: true
+      config:
+        sizeLimit: 1
+  - name: lev_router
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: app-runtime
+      service: html5-apps-repo
+      shared: true
