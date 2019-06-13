@@ -10,6 +10,21 @@ modules:
       memory: 256M
     requires:
       - name: lev_router
+      - name: srv_api
+        group: destinations
+        properties:
+          name: srv_api
+          url: '~{url}'
+          forwardAuthToken: true
+      - name: lev_uaa
 resources:
   - name: lev_router
+    type: org.cloudfoundry.existing-service
+  - name: srv_api
+    type: configuration
+    parameters:
+      provider-nid: mta
+      provider-id: 'backend:srv_api'
+      version: '>=0.0.1'
+  - name: lev_uaa
     type: org.cloudfoundry.existing-service
