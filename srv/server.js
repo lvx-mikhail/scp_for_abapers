@@ -62,7 +62,7 @@ cds.serve("gen/csn.json", {
     
 require("./router")(app, server);
 
-schedule.scheduleJob('windLoader', '1 * * * * *', 
+schedule.scheduleJob('windLoader', '30 * * * * *', 
 		require("./jobs/windLoader.js")(appContext));
 
 app.use(function (err, req, res, next) {

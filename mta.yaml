@@ -19,6 +19,7 @@ modules:
       logging_level: debug
     provides:
       - name: srv_api
+        public: true
         properties:
           url: '${default-url}'
     requires:
